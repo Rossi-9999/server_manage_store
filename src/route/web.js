@@ -10,6 +10,22 @@ let initWebRoutes = (app) => {
     "/api/store-owner/create",
     storeOwnerController.handleCreateNewStoreOwner
   );
+  router.get(
+    "/api/store-owner/get-all",
+    storeOwnerController.handleGetAllStoreOwner
+  );
+  router.get(
+    "/api/store-owner/get-by-identifyId",
+    storeOwnerController.handleGeStoreOwnerByIdentifyId
+  );
+  router.put(
+    "/api/store-owner/edit",
+    storeOwnerController.handleEditStoreOwner
+  );
+  router.delete(
+    "/api/store-owner/delete",
+    storeOwnerController.handleDeleteStoreOwner
+  );
 
   return app.use("/", router);
 };
