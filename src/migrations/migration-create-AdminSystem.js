@@ -2,19 +2,14 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Stores", {
+    await queryInterface.createTable("AdminSystems", {
       id: {
         allowNull: false,
-        // autoIncrement: true,
         primaryKey: true,
         type: Sequelize.UUID,
         defaultValue: Sequelize.literal("gen_random_uuid()"),
       },
-      name: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      logo: {
+      fullName: {
         type: Sequelize.STRING,
         allowNull: false,
       },
@@ -24,16 +19,20 @@ module.exports = {
       },
       email: {
         type: Sequelize.STRING,
-        allowNull: false,
         validate: { isEmail: true },
       },
-      storeOwnerId: {
-        type: Sequelize.UUID,
+      password: {
+        type: Sequelize.STRING,
         allowNull: false,
-        references: {
-          model: "StoreOwners",
-          key: "id",
-        },
+      },
+
+      image: {
+        type: Sequelize.STRING,
+      },
+
+      cardId: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
 
       createdAt: {
@@ -49,6 +48,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Stores");
+    await queryInterface.dropTable("AdminSystems");
   },
 };

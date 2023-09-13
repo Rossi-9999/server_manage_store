@@ -4,10 +4,11 @@ import storeOwnerController from "../controllers/storeOwnerController";
 import storeController from "../controllers/storeController";
 import statusController from "../controllers/statusController";
 import workerController from "../controllers/workerController";
+import contractController from "../controllers/contractController";
 
 let router = express.Router();
 let initWebRoutes = (app) => {
-  //storeOwnerAPI
+  //store-owner API
 
   router.post(
     "/api/store-owner/create",
@@ -18,8 +19,16 @@ let initWebRoutes = (app) => {
     storeOwnerController.handleGetAllStoreOwner
   );
   router.get(
+    "/api/store-owner/get-all-with-stores",
+    storeOwnerController.handleGetAllStoreOwnerWithStores
+  );
+  router.get(
     "/api/store-owner/get-by-identifyId",
     storeOwnerController.handleGeStoreOwnerByIdentifyId
+  );
+  router.get(
+    "/api/store-owner/get-by-identifyId-with-stores",
+    storeOwnerController.handleGeStoreOwnerByIdentifyIdWithStore
   );
   router.put(
     "/api/store-owner/edit",
@@ -30,18 +39,22 @@ let initWebRoutes = (app) => {
     storeOwnerController.handleDeleteStoreOwner
   );
 
-  // store
+  // store API
 
   router.post("/api/store/create", storeController.handleCreateNewStore);
 
-  // contract
-
-  // status
+  // status API
   router.post("/api/status/create", statusController.handleCreateNewStatus);
 
-  // worker
+  // worker API
 
   router.post("/api/worker/create", workerController.handleCreateNewWorker);
+
+  // contract API
+  router.post(
+    "/api/contract/create",
+    contractController.handleCreateNewContract
+  );
 
   return app.use("/", router);
 };

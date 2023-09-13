@@ -32,9 +32,44 @@ let handleGetAllStoreOwner = async (req, res) => {
   }
 };
 
+let handleGetAllStoreOwnerWithStores = async (req, res) => {
+  let data = await storeOwnerService.getAllStoreOwnerWithStores();
+  if (data) {
+    return res.status(200).json({
+      errCode: 0,
+      message: "Successful!",
+      data: data,
+    });
+  } else {
+    return res.status(500).json({
+      errCode: 1,
+      message: "Can't get all storeOwner",
+    });
+  }
+};
+
 let handleGeStoreOwnerByIdentifyId = async (req, res) => {
   const identifyId = req.body.identifyId;
   let data = await storeOwnerService.getStoreOwnerByIdentifyId(identifyId);
+  if (data) {
+    return res.status(200).json({
+      errCode: 0,
+      message: "Successful!",
+      data: data,
+    });
+  } else {
+    return res.status(500).json({
+      errCode: 1,
+      message: `Can't get storeOwner by identifyId: ${identifyId}`,
+    });
+  }
+};
+
+let handleGeStoreOwnerByIdentifyIdWithStore = async (req, res) => {
+  const identifyId = req.body.identifyId;
+  let data = await storeOwnerService.getStoreOwnerByIdentifyIdWithStores(
+    identifyId
+  );
   if (data) {
     return res.status(200).json({
       errCode: 0,
@@ -72,4 +107,7 @@ module.exports = {
   handleGeStoreOwnerByIdentifyId: handleGeStoreOwnerByIdentifyId,
   handleEditStoreOwner: handleEditStoreOwner,
   handleDeleteStoreOwner: handleDeleteStoreOwner,
+  handleGetAllStoreOwnerWithStores: handleGetAllStoreOwnerWithStores,
+  handleGeStoreOwnerByIdentifyIdWithStore:
+    handleGeStoreOwnerByIdentifyIdWithStore,
 };

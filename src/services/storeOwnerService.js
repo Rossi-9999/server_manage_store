@@ -46,11 +46,38 @@ let getAllStoreOwner = async () => {
   }
 };
 
+let getAllStoreOwnerWithStores = async () => {
+  try {
+    let listStoreOwner = await db.StoreOwner.findAll({
+      attributes: { exclude: ["password"] },
+      include: db.Store,
+    });
+    return listStoreOwner;
+  } catch (error) {
+    console.log("error", error);
+    return null;
+  }
+};
+
 let getStoreOwnerByIdentifyId = async (id) => {
   try {
     let storeOwner = await db.StoreOwner.findOne({
       where: { identifyId: id },
       attributes: { exclude: ["password"] },
+    });
+    return storeOwner;
+  } catch (error) {
+    console.log("error", error);
+    return null;
+  }
+};
+
+let getStoreOwnerByIdentifyIdWithStores = async (id) => {
+  try {
+    let storeOwner = await db.StoreOwner.findOne({
+      where: { identifyId: id },
+      attributes: { exclude: ["password"] },
+      include: db.Store,
     });
     return storeOwner;
   } catch (error) {
@@ -125,4 +152,6 @@ module.exports = {
   getStoreOwnerByIdentifyId: getStoreOwnerByIdentifyId,
   updateStoreOwner: updateStoreOwner,
   deleteStoreOwner: deleteStoreOwner,
+  getAllStoreOwnerWithStores: getAllStoreOwnerWithStores,
+  getStoreOwnerByIdentifyIdWithStores: getStoreOwnerByIdentifyIdWithStores,
 };

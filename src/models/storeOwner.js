@@ -9,13 +9,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      //   StoreOwner.hasMany(models["store"], {
-      //     foreignKey: {
-      //         type: DataTypes.UUID,
-      //         allowNull: false,
-      //       name: "storeOwnerId",
-      //     },
-      //   });
+      StoreOwner.hasMany(models["Store"], {
+        foreignKey: "storeOwnerId",
+      });
     }
   }
   StoreOwner.init(
