@@ -12,6 +12,12 @@ module.exports = (sequelize, DataTypes) => {
       StoreOwner.hasMany(models["Store"], {
         foreignKey: "storeOwnerId",
       });
+      StoreOwner.hasMany(models["Contract"], {
+        foreignKey: "storeOwnerId",
+      });
+      StoreOwner.hasMany(models["JobConnect"], {
+        foreignKey: "storeOwnerId",
+      });
     }
   }
   StoreOwner.init(
