@@ -14,23 +14,53 @@ let hashPassword = (password) => {
   });
 };
 
-let createNewWorker = async (data) => {
-  let hash_Password = await hashPassword(data.password);
+let checkPhoneNumber = async (phoneNumber) => {
   try {
-    const newWoker = await db.Worker.create({
-      fullName: data.fullName,
-      phoneNumber: data.phoneNumber,
-      email: data.email,
-      password: hash_Password,
-      birthday: data.birthday,
-      image: data.image,
-      gender: data.gender,
+    let storeOwner = await db.Worker.findOne({
+      where: { phoneNumber: phoneNumber },
     });
-
-    return newWoker;
+    if (storeOwner) {
+      return true;
+    } else {
+      return false;
+    }
   } catch (error) {
-    console.log("error", error);
-    return null;
+    return false;
+  }
+};
+
+let createNewWorker = async (data) => {
+  let check = await checkPhoneNumber(data.phoneNumber);
+  let hash_Password = await hashPassword(data.password);
+  if (check) {
+    return {
+      errCode: 1,
+      errMessage: "Your phone number already exists, please try other",
+    };
+  } else {
+    try {
+      const newWoker = await db.Worker.create({
+        fullName: data.fullName,
+        phoneNumber: data.phoneNumber,
+        email: data.email,
+        password: hash_Password,
+        birthday: data.birthday,
+        image: data.image,
+        gender: data.gender,
+      });
+
+      return {
+        errCode: 0,
+        errMessage: "Successful!",
+        data: newWoker,
+      };
+    } catch (error) {
+      console.log("error", error);
+      return {
+        errCode: 2,
+        errMessage: "Can't create ",
+      };
+    }
   }
 };
 
