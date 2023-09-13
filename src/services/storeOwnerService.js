@@ -13,24 +13,52 @@ let hashPassword = (password) => {
     }
   });
 };
-
+let checkPhoneNumber = async (phoneNumber) => {
+  try {
+    let storeOwner = await db.StoreOwner.findOne({
+      where: { phoneNumber: phoneNumber },
+    });
+    if (storeOwner) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    return false;
+  }
+};
 let createNewStoreOwner = async (data) => {
   let hash_Password = await hashPassword(data.password);
-  try {
-    const newStoreOwner = await db.StoreOwner.create({
-      fullName: data.fullName,
-      phoneNumber: data.phoneNumber,
-      email: data.email,
-      password: hash_Password,
-      birthday: data.birthday,
-      image: data.image,
-      gender: data.gender,
-    });
+  let check = await checkPhoneNumber(data.phoneNumber);
+  if (check) {
+    return {
+      errCode: 1,
+      errMessage: "Your phone number already exists, please try other",
+    };
+  } else {
+    try {
+      const newStoreOwner = await db.StoreOwner.create({
+        fullName: data.fullName,
+        phoneNumber: data.phoneNumber,
+        email: data.email,
+        password: hash_Password,
+        birthday: data.birthday,
+        image: data.image,
+        gender: data.gender,
+      });
 
-    return newStoreOwner;
-  } catch (error) {
-    console.log("error", error);
-    return null;
+      return {
+        errCode: 0,
+        errMessage: "Successful!",
+        data: newStoreOwner,
+      };
+    } catch (error) {
+      console.log("error", error);
+      return {
+        errCode: 2,
+        errMessage: "Can't create ",
+      };
+    }
   }
 };
 

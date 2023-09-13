@@ -1,19 +1,7 @@
 import storeOwnerService from "../services/storeOwnerService";
 let handleCreateNewStoreOwner = async (req, res) => {
   let data = await storeOwnerService.createNewStoreOwner(req.body);
-
-  if (data) {
-    return res.status(200).json({
-      errCode: 0,
-      message: "Successful!",
-      data: data,
-    });
-  } else {
-    return res.status(500).json({
-      errCode: 1,
-      message: "Can't create store owner",
-    });
-  }
+  return res.status(200).json(data);
 };
 
 let handleGetAllStoreOwner = async (req, res) => {
