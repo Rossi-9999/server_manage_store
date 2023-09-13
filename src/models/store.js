@@ -20,11 +20,26 @@ module.exports = (sequelize, DataTypes) => {
   }
   Store.init(
     {
-      name: DataTypes.STRING,
-      logo: DataTypes.STRING,
-      phoneNumber: DataTypes.STRING,
-      email: DataTypes.STRING,
-      storeOwnerId: DataTypes.UUID,
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      logo: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      phoneNumber: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      email: {
+        type: DataTypes.STRING,
+        validate: { isEmail: true },
+      },
+      storeOwnerId: {
+        type: DataTypes.UUID,
+        allowNull: false,
+      },
     },
     {
       sequelize,

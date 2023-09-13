@@ -13,12 +13,27 @@ module.exports = (sequelize, DataTypes) => {
   }
   Contract.init(
     {
-      name: DataTypes.STRING,
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       description: DataTypes.STRING,
-      statusId: DataTypes.UUID,
-      storeOwnerId: DataTypes.UUID,
-      workerId: DataTypes.UUID,
-      storeId: DataTypes.UUID,
+      isActive: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
+      storeOwnerId: {
+        type: DataTypes.UUID,
+        allowNull: false,
+      },
+      workerId: {
+        type: DataTypes.UUID,
+        allowNull: false,
+      },
+      storeId: {
+        type: DataTypes.UUID,
+        allowNull: false,
+      },
     },
     {
       sequelize,

@@ -2,27 +2,34 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Store", {
+    await queryInterface.createTable("Stores", {
       id: {
         allowNull: false,
         // autoIncrement: true,
         primaryKey: true,
         type: Sequelize.UUID,
+        defaultValue: Sequelize.literal("gen_random_uuid()"),
       },
       name: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       logo: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       phoneNumber: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       email: {
         type: Sequelize.STRING,
+        allowNull: false,
+        validate: { isEmail: true },
       },
       storeOwnerId: {
         type: Sequelize.UUID,
+        allowNull: false,
       },
 
       createdAt: {
@@ -38,6 +45,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Store");
+    await queryInterface.dropTable("Stores");
   },
 };

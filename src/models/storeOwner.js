@@ -20,15 +20,12 @@ module.exports = (sequelize, DataTypes) => {
   }
   StoreOwner.init(
     {
-      id: {
-        allowNull: false,
-        primaryKey: true,
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-      },
       fullName: DataTypes.STRING,
       phoneNumber: DataTypes.STRING,
-      email: DataTypes.STRING,
+      email: {
+        type: DataTypes.STRING,
+        validate: { isEmail: true },
+      },
       password: DataTypes.STRING,
       birthday: DataTypes.DATE,
       image: DataTypes.STRING,

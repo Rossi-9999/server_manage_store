@@ -2,30 +2,35 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Contract", {
+    await queryInterface.createTable("Contracts", {
       id: {
         allowNull: false,
-        // autoIncrement: true,
         primaryKey: true,
         type: Sequelize.UUID,
+        defaultValue: Sequelize.literal("gen_random_uuid()"),
       },
       name: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       description: {
         type: Sequelize.STRING,
       },
-      statusId: {
-        type: Sequelize.UUID,
+      isActive: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
       },
       storeOwnerId: {
         type: Sequelize.UUID,
+        allowNull: false,
       },
       workerId: {
         type: Sequelize.UUID,
+        allowNull: false,
       },
       storeId: {
         type: Sequelize.UUID,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,
@@ -40,6 +45,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Contract");
+    await queryInterface.dropTable("Contracts");
   },
 };

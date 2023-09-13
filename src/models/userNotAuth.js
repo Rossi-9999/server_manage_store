@@ -13,15 +13,30 @@ module.exports = (sequelize, DataTypes) => {
   }
   UserNotAuth.init(
     {
-      fullName: DataTypes.STRING,
-      phoneNumber: DataTypes.STRING,
-      email: DataTypes.STRING,
-      password: DataTypes.STRING,
+      fullName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      phoneNumber: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       birthday: DataTypes.DATE,
       image: DataTypes.STRING,
       gender: DataTypes.BOOLEAN,
       identifyId: DataTypes.UUID,
-      code: DataTypes.STRING,
+      code: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
     },
     {
       sequelize,

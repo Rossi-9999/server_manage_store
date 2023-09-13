@@ -13,13 +13,34 @@ module.exports = (sequelize, DataTypes) => {
   }
   JobConnect.init(
     {
-      name: DataTypes.STRING,
-      description: DataTypes.STRING,
-      type: DataTypes.STRING,
-      statusId: DataTypes.UUID,
-      storeOwnerId: DataTypes.UUID,
-      workerId: DataTypes.UUID,
-      storeId: DataTypes.UUID,
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      description: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      type: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      statusId: {
+        type: DataTypes.UUID,
+        allowNull: false,
+      },
+      storeOwnerId: {
+        type: DataTypes.UUID,
+        allowNull: false,
+      },
+      workerId: {
+        type: DataTypes.UUID,
+        allowNull: false,
+      },
+      storeId: {
+        type: DataTypes.UUID,
+        allowNull: false,
+      },
     },
     {
       sequelize,

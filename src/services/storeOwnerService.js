@@ -3,14 +3,25 @@ import bcrypt from "bcryptjs";
 
 var salt = bcrypt.genSaltSync(10);
 
+let hashPassword = (password) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      var hashPassword = await bcrypt.hashSync(password, salt);
+      resolve(hashPassword);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 let createNewStoreOwner = async (data) => {
+  let hash_Password = await hashPassword(data.password);
   try {
-    // check email  is exist ??
     const newStoreOwner = await db.StoreOwner.create({
       fullName: data.fullName,
       phoneNumber: data.phoneNumber,
       email: data.email,
-      password: data.password,
+      password: hash_Password,
       birthday: data.birthday,
       image: data.image,
       gender: data.gender,

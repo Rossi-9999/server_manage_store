@@ -12,15 +12,20 @@ module.exports = {
       },
       fullName: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       phoneNumber: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       email: {
         type: Sequelize.STRING,
+        allowNull: false,
+        validate: { isEmail: true },
       },
       password: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       birthday: {
         type: Sequelize.STRING,
@@ -28,6 +33,9 @@ module.exports = {
       },
       image: {
         type: Sequelize.STRING,
+        allowNull: false,
+        defaultValue:
+          "https://th.bing.com/th/id/OIP.nFtlTeqHyG2yQqh5olfSLgHaEK?pid=ImgDet&rs=1",
       },
       gender: {
         type: Sequelize.BOOLEAN,
@@ -36,7 +44,6 @@ module.exports = {
         type: Sequelize.UUID,
         defaultValue: Sequelize.literal("gen_random_uuid()"),
         allowNull: false,
-        // autoIncrement: true,
       },
 
       createdAt: {

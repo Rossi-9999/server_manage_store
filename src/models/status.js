@@ -13,8 +13,14 @@ module.exports = (sequelize, DataTypes) => {
   }
   Status.init(
     {
-      name: DataTypes.STRING,
-      type: DataTypes.STRING,
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      type: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
     },
     {
       sequelize,
